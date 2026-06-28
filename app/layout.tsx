@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "ギフト券まるっと便｜商品券・ギフトカード販売",
   description:
-    "全国百貨店共通商品券、VJAギフトカード、JCBギフトカードを1,000円券1枚単位で販売。LINEで注文、銀行振込、追跡可能なレターパック発送。",
+    "株式会社チケモが運営する商品券・ギフトカード販売サイト。全国百貨店共通商品券、VJAギフトカード、JCBギフトカードを1枚999円で販売。LINEで注文、銀行振込、追跡可能なレターパック発送。",
   keywords: [
     "商品券販売",
     "ギフトカード販売",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ギフト券まるっと便",
     description:
-      "商品券・ギフトカードを1枚999円で。まとめ買いしやすく、LINEで注文できます。",
+      "商品券・ギフトカードを1枚999円で。50枚ごとに送料が加算され、LINEで注文できます。",
     images: ["/gift-card-hero.png"],
   },
 };

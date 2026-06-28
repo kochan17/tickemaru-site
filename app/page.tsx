@@ -1,6 +1,15 @@
 import Image from "next/image";
 import OrderCalculator from "./OrderCalculator";
-import { lineUrl, products } from "./site-config";
+import {
+  baseShipping,
+  legalRows,
+  lineUrl,
+  products,
+  shippingExamples,
+  shippingUnitSize,
+} from "./site-config";
+
+const yen = new Intl.NumberFormat("ja-JP").format;
 
 export default function Home() {
   return (
@@ -18,6 +27,7 @@ export default function Home() {
           <a href="#quote">見積もり</a>
           <a href="#shipping">送料</a>
           <a href="#order">注文方法</a>
+          <a href="#legal">法定表示</a>
         </nav>
         <a className="line-button small" href={lineUrl}>
           LINEで注文
@@ -47,7 +57,7 @@ export default function Home() {
             </div>
             <div>
               <dt>送料</dt>
-              <dd>50枚まで2,900円</dd>
+              <dd>50枚ごと+2,900円</dd>
             </div>
             <div>
               <dt>支払い</dt>
@@ -93,18 +103,21 @@ export default function Home() {
           <p className="eyebrow">送料と発送</p>
           <h2>レターパックで追跡可能。まとめ買いも安心。</h2>
           <p className="shipping-copy">
-            発送後は追跡番号で配送状況を確認できます。51枚以上は2口に分けて発送します。
+            発送後は追跡番号で配送状況を確認できます。送料は{shippingUnitSize}
+            枚ごとに{yen(baseShipping)}円ずつ加算され、51枚以上は複数口に分けて発送します。
           </p>
         </div>
         <div className="shipping-cards">
-          <article>
-            <span>1-50枚</span>
-            <strong>送料 2,900円</strong>
-          </article>
-          <article>
-            <span>51枚以上</span>
-            <strong>送料 5,800円</strong>
-          </article>
+          {shippingExamples.map((example) => (
+            <article key={example.range}>
+              <span>{example.range} / {example.units}</span>
+              <strong>送料 {yen(example.price)}円</strong>
+            </article>
+          ))}
+          <p className="shipping-rule">
+            201枚以上も同じく、50枚ごとに1口増え、送料は1口あたり
+            {yen(baseShipping)}円です。
+          </p>
         </div>
       </section>
 
@@ -144,9 +157,56 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="legal" className="section legal-section">
+        <div className="section-heading">
+          <p className="eyebrow">運営元情報</p>
+          <h2>特定商取引法に基づく表示</h2>
+        </div>
+        <div className="legal-grid">
+          <dl className="legal-table">
+            {legalRows.map(([term, description]) => (
+              <div key={term}>
+                <dt>{term}</dt>
+                <dd>{description}</dd>
+              </div>
+            ))}
+          </dl>
+          <aside className="legal-card">
+            <h3>販売条件</h3>
+            <ul>
+              <li>商品はすべて1,000円券を1枚単位で販売します。</li>
+              <li>注文はLINEで受付し、在庫確認後に振込先と確定金額を案内します。</li>
+              <li>銀行振込の入金確認後、レターパックで追跡番号付き発送を行います。</li>
+              <li>古物営業法に基づく許可を取得済みです。</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section className="section policy-section">
+        <div>
+          <p className="eyebrow">個人情報の取り扱い</p>
+          <h2>プライバシーポリシー</h2>
+          <p>
+            お預かりした氏名、住所、連絡先、注文内容は、注文確認、発送、
+            お問い合わせ対応、法令上必要な記録管理のために利用します。
+            法令に基づく場合を除き、本人の同意なく第三者へ提供しません。
+          </p>
+        </div>
+        <div>
+          <p className="eyebrow">ご利用条件</p>
+          <h2>利用規約</h2>
+          <p>
+            商品の在庫、状態、発送時期、最終的な合計金額はLINEでの案内をもって確定します。
+            不正利用、虚偽情報による注文、受取拒否など当店が不適切と判断する取引は、
+            受付後であってもキャンセルする場合があります。
+          </p>
+        </div>
+      </section>
+
       <footer className="site-footer">
         <strong>ギフト券まるっと便</strong>
-        <span>商品券・ギフトカード販売 / 銀行振込 / レターパック発送</span>
+        <span>株式会社チケモ / 商品券・ギフトカード販売 / 古物商許可取得済み</span>
       </footer>
     </main>
   );

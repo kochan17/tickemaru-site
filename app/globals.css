@@ -338,6 +338,14 @@ h3 {
   font-size: 26px;
 }
 
+.shipping-rule {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.75;
+  margin: 0;
+}
+
 .shipping-copy {
   color: var(--muted);
   font-size: 17px;
@@ -586,6 +594,91 @@ h3 {
   margin: 10px 0 0;
 }
 
+.legal-section {
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+}
+
+.legal-grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.42fr);
+  margin: 0 auto;
+  max-width: 1160px;
+}
+
+.legal-table {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.legal-table div {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.32fr) minmax(0, 1fr);
+}
+
+.legal-table div + div {
+  border-top: 1px solid var(--line);
+}
+
+.legal-table dt,
+.legal-table dd {
+  line-height: 1.75;
+  margin: 0;
+  padding: 16px 18px;
+}
+
+.legal-table dt {
+  background: #f4fbf7;
+  color: var(--mint-dark);
+  font-weight: 900;
+}
+
+.legal-table dd {
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.legal-card {
+  align-self: start;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px;
+}
+
+.legal-card ul {
+  color: var(--muted);
+  display: grid;
+  gap: 10px;
+  line-height: 1.75;
+  margin: 16px 0 0;
+  padding-left: 20px;
+}
+
+.policy-section {
+  background: var(--paper);
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.policy-section > div {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.policy-section p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.9;
+}
+
 .site-footer {
   align-items: center;
   background: var(--ink);
@@ -613,7 +706,9 @@ h3 {
 
   .hero,
   .shipping-band,
-  .calculator-shell {
+  .calculator-shell,
+  .legal-grid,
+  .policy-section {
     grid-template-columns: 1fr;
   }
 
@@ -688,5 +783,13 @@ h3 {
 
   .stepper {
     width: 100%;
+  }
+
+  .legal-table div {
+    grid-template-columns: 1fr;
+  }
+
+  .legal-table dd {
+    padding-top: 12px;
   }
 }

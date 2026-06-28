@@ -1,7 +1,15 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { baseShipping, lineUrl, products, unitPrice } from "./site-config";
+import {
+  baseShipping,
+  calculateShipping,
+  calculateShippingUnits,
+  lineUrl,
+  products,
+  shippingUnitSize,
+  unitPrice,
+} from "./site-config";
 
 const formatter = new Intl.NumberFormat("ja-JP");
 
@@ -27,14 +35,13 @@ export default function OrderCalculator() {
 
   const totalCount = rows.reduce((sum, row) => sum + row.quantity, 0);
   const itemTotal = rows.reduce((sum, row) => sum + row.subtotal, 0);
-  const shipping = totalCount === 0 ? 0 : totalCount <= 50 ? baseShipping : baseShipping * 2;
+  const shippingUnits = calculateShippingUnits(totalCount);
+  const shipping = calculateShipping(totalCount);
   const grandTotal = itemTotal + shipping;
   const shippingNote =
     totalCount === 0
       ? "枚数を入力してください"
-      : totalCount <= 50
-        ? "50枚まで・1口発送"
-        : "51枚以上・2口発送";
+      : `${shippingUnitSize}枚ごとに1口・${shippingUnits}口発送`;
   const selectedRows = rows.filter((row) => row.quantity > 0);
   const hasOrder = selectedRows.length > 0;
 
@@ -83,8 +90,9 @@ export default function OrderCalculator() {
         <p className="eyebrow">かんたん見積もり</p>
         <h2>枚数を入れて、LINEに送る内容を確認</h2>
         <p>
-          商品券はすべて1枚999円。50枚まで送料2,900円、51枚以上は2口発送で
-          送料5,800円です。
+          商品券はすべて1枚{unitPrice}円。送料は{shippingUnitSize}
+          枚ごとに{yen(baseShipping)}ずつ加算されます。
+          51枚以上は複数口に分けて追跡発送します。
         </p>
       </div>
 

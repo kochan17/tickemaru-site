@@ -46,7 +46,7 @@ export default function OrderCalculator() {
   const hasOrder = selectedRows.length > 0;
 
   const orderText = [
-    "ギフト券まるっと便 注文相談",
+    "チケまる 注文相談",
     "",
     ...selectedRows.map(
       (row) => `${row.name}：${row.quantity}枚（${yen(row.subtotal)}）`,

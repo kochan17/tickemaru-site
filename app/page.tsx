@@ -15,10 +15,10 @@ export default function Home() {
   return (
     <main>
       <header className="site-header" aria-label="サイトヘッダー">
-        <a className="brand" href="#top" aria-label="ギフト券まるっと便">
-          <span className="brand-mark">ま</span>
+        <a className="brand" href="#top" aria-label="チケまる">
+          <span className="brand-mark">チ</span>
           <span>
-            <strong>ギフト券まるっと便</strong>
+            <strong>チケまる</strong>
             <small>商品券・ギフトカード販売</small>
           </span>
         </a>
@@ -205,7 +205,7 @@ export default function Home() {
       </section>
 
       <footer className="site-footer">
-        <strong>ギフト券まるっと便</strong>
+        <strong>チケまる</strong>
         <span>株式会社チケモ / 商品券・ギフトカード販売 / 古物商許可取得済み</span>
       </footer>
     </main>

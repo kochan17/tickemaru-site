@@ -1,5 +1,5 @@
 export const lineUrl = "https://line.me/R/ti/p/@your-line-id";
-export const siteUrl = "https://gift-marutto-bin.takeru-tamur-4847.chatgpt-team.site/";
+export const siteUrl = "https://tickemaru.com/";
 
 export const unitPrice = 999;
 export const baseShipping = 2900;

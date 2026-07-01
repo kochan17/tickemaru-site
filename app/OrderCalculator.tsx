@@ -41,7 +41,11 @@ export default function OrderCalculator() {
   const shippingNote =
     totalCount === 0
       ? "枚数を入力してください"
-      : `${shippingUnitSize}枚ごとに1口・${shippingUnits}口発送`;
+      : `${shippingUnits}口発送（1口${shippingUnitSize}枚まで）`;
+  const shippingFormula =
+    totalCount === 0
+      ? ""
+      : `${shippingUnits}口 × ${yen(baseShipping)}`;
   const selectedRows = rows.filter((row) => row.quantity > 0);
   const hasOrder = selectedRows.length > 0;
 
@@ -54,7 +58,7 @@ export default function OrderCalculator() {
     "",
     `合計枚数：${totalCount}枚`,
     `商品合計：${yen(itemTotal)}`,
-    `送料：${yen(shipping)}（${shippingNote}）`,
+    `送料：${yen(shipping)}（${shippingFormula}）`,
     `振込予定額：${yen(grandTotal)}`,
     "",
     "在庫と振込先の案内をお願いします。",
@@ -90,9 +94,8 @@ export default function OrderCalculator() {
         <p className="eyebrow">かんたん見積もり</p>
         <h2>枚数を入れて、LINEに送る内容を確認</h2>
         <p>
-          商品券はすべて1枚{unitPrice}円。送料は{shippingUnitSize}
-          枚ごとに{yen(baseShipping)}ずつ加算されます。
-          51枚以上は複数口に分けて追跡発送します。
+          商品券はすべて1枚{unitPrice}円。送料は1口{yen(baseShipping)}で、
+          1口あたり{shippingUnitSize}枚まで。口数が増えるごとに送料が加算されます。
         </p>
       </div>
 

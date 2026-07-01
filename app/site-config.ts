@@ -1,5 +1,5 @@
 export const lineUrl = "https://line.me/R/ti/p/@your-line-id";
-export const siteUrl = "https://gift-marutto-bin.takeru-tamur-4847.chatgpt-team.site/";
+export const siteUrl = "https://tickemaru.com/";
 
 export const unitPrice = 999;
 export const baseShipping = 2900;
@@ -14,13 +14,6 @@ export function calculateShippingUnits(quantity: number) {
   if (quantity <= 0) return 0;
   return Math.ceil(quantity / shippingUnitSize);
 }
-
-export const shippingExamples = [
-  { range: "1-50枚", units: "1口", price: 2900 },
-  { range: "51-100枚", units: "2口", price: 5800 },
-  { range: "101-150枚", units: "3口", price: 8700 },
-  { range: "151-200枚", units: "4口", price: 11600 },
-];
 
 export const products = [
   {
@@ -42,7 +35,7 @@ export const products = [
 
 export const legalRows = [
   ["販売業者", "株式会社チケモ"],
-  ["代表者", "古木雄大"],
+  ["運営統括責任者", "古木雄大"],
   [
     "所在地",
     "新潟県新潟市中央区西堀通5-855-5 フロンティア古町ビル3F-A",
@@ -51,18 +44,29 @@ export const legalRows = [
   ["サイトURL", siteUrl],
   ["販売価格", "1,000円券1枚あたり999円"],
   [
+    "販売数量",
+    "1枚から注文可能です。在庫状況により、ご希望枚数を用意できない場合があります。",
+  ],
+  [
     "商品代金以外の必要料金",
-    "送料：50枚ごとに2,900円。銀行振込手数料はお客様負担です。",
+    "送料：1口（50枚まで）2,900円。口数が増えるごとに2,900円ずつ加算されます。銀行振込手数料はお客様負担です。",
   ],
   ["支払い方法", "銀行振込"],
-  ["支払い期限", "ご注文後、ご連絡なしで1週間入金がない場合は無効とします。"],
+  [
+    "支払い期限",
+    "LINEで確定金額と振込先を案内後、1週間以内にお振り込みください。ご連絡なしで入金がない場合は無効とします。",
+  ],
   [
     "商品の引渡時期",
     "入金確認後、当日または翌日にレターパックで発送します。確認事項がある場合は確認後の発送となります。",
   ],
   [
     "返品・キャンセル",
-    "お客様都合による返品・返金はお受けできません。不良品は良品交換または返金で対応し、当店が費用を負担します。商品到着後7日以内にお知らせください。出荷後のキャンセル、受け取り拒否、長期不在等でお受け取りいただけなかった場合の付帯経費はお客様負担となります。",
+    "お客様都合による返品・返金はお受けできません。出荷前のキャンセル可否はLINEでの案内内容と取引状況により判断します。",
+  ],
+  [
+    "不良品等の対応",
+    "商品違い、枚数違い、配送中の破損など当店責任による不備がある場合は、良品交換または返金で対応し、当店が費用を負担します。商品到着後7日以内にお知らせください。",
   ],
   [
     "資格・免許",

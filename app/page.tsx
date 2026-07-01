@@ -1,11 +1,9 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 import OrderCalculator from "./OrderCalculator";
 import {
   baseShipping,
-  legalRows,
   lineUrl,
   products,
-  shippingExamples,
   shippingUnitSize,
 } from "./site-config";
 
@@ -27,7 +25,7 @@ export default function Home() {
           <a href="#quote">見積もり</a>
           <a href="#shipping">送料</a>
           <a href="#order">注文方法</a>
-          <a href="#legal">法定表示</a>
+          <a href="/legal">運営元</a>
         </nav>
         <a className="line-button small" href={lineUrl}>
           LINEで注文
@@ -67,12 +65,9 @@ export default function Home() {
         </div>
 
         <div className="hero-visual" aria-label="ギフトカードのイメージ">
-          <Image
+          <img
             src="/gift-card-hero.png"
             alt="まとめ買いできるギフトカードと追跡可能な発送のイメージ"
-            width={1693}
-            height={929}
-            priority
           />
         </div>
       </section>
@@ -103,20 +98,17 @@ export default function Home() {
           <p className="eyebrow">送料と発送</p>
           <h2>レターパックで追跡可能。まとめ買いも安心。</h2>
           <p className="shipping-copy">
-            発送後は追跡番号で配送状況を確認できます。送料は{shippingUnitSize}
-            枚ごとに{yen(baseShipping)}円ずつ加算され、51枚以上は複数口に分けて発送します。
+            発送後は追跡番号で配送状況を確認できます。送料は1口
+            {yen(baseShipping)}円で、1口あたり{shippingUnitSize}
+            枚まで。合計枚数に応じて口数が増え、送料は口数分だけ加算されます。
           </p>
         </div>
-        <div className="shipping-cards">
-          {shippingExamples.map((example) => (
-            <article key={example.range}>
-              <span>{example.range} / {example.units}</span>
-              <strong>送料 {yen(example.price)}円</strong>
-            </article>
-          ))}
+        <div className="shipping-rule-card">
+          <span>送料の考え方</span>
+          <strong>口数 × {yen(baseShipping)}円</strong>
           <p className="shipping-rule">
-            201枚以上も同じく、50枚ごとに1口増え、送料は1口あたり
-            {yen(baseShipping)}円です。
+            口数は「合計枚数 ÷ {shippingUnitSize}」を切り上げて計算します。
+            たとえば120枚なら3口、送料は{yen(baseShipping * 3)}円です。
           </p>
         </div>
       </section>
@@ -157,56 +149,40 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="legal" className="section legal-section">
+      <section id="legal" className="section legal-links-section">
         <div className="section-heading">
-          <p className="eyebrow">運営元情報</p>
-          <h2>特定商取引法に基づく表示</h2>
+          <p className="eyebrow">安心してご利用いただくために</p>
+          <h2>運営元情報とご利用条件を確認できます</h2>
         </div>
-        <div className="legal-grid">
-          <dl className="legal-table">
-            {legalRows.map(([term, description]) => (
-              <div key={term}>
-                <dt>{term}</dt>
-                <dd>{description}</dd>
-              </div>
-            ))}
-          </dl>
-          <aside className="legal-card">
-            <h3>販売条件</h3>
-            <ul>
-              <li>商品はすべて1,000円券を1枚単位で販売します。</li>
-              <li>注文はLINEで受付し、在庫確認後に振込先と確定金額を案内します。</li>
-              <li>銀行振込の入金確認後、レターパックで追跡番号付き発送を行います。</li>
-              <li>古物営業法に基づく許可を取得済みです。</li>
-            </ul>
-          </aside>
-        </div>
-      </section>
-
-      <section className="section policy-section">
-        <div>
-          <p className="eyebrow">個人情報の取り扱い</p>
-          <h2>プライバシーポリシー</h2>
-          <p>
-            お預かりした氏名、住所、連絡先、注文内容は、注文確認、発送、
-            お問い合わせ対応、法令上必要な記録管理のために利用します。
-            法令に基づく場合を除き、本人の同意なく第三者へ提供しません。
-          </p>
-        </div>
-        <div>
-          <p className="eyebrow">ご利用条件</p>
-          <h2>利用規約</h2>
-          <p>
-            商品の在庫、状態、発送時期、最終的な合計金額はLINEでの案内をもって確定します。
-            不正利用、虚偽情報による注文、受取拒否など当店が不適切と判断する取引は、
-            受付後であってもキャンセルする場合があります。
-          </p>
+        <div className="legal-link-grid">
+          <a className="legal-link-card" href="/legal">
+            <span>運営元情報</span>
+            <strong>特定商取引法に基づく表示</strong>
+            <p>販売業者、所在地、送料、返品・キャンセルなどの取引条件。</p>
+          </a>
+          <a className="legal-link-card" href="/privacy">
+            <span>個人情報の取り扱い</span>
+            <strong>プライバシーポリシー</strong>
+            <p>注文・発送・お問い合わせに必要な情報の利用目的と管理方法。</p>
+          </a>
+          <a className="legal-link-card" href="/terms">
+            <span>ご利用前の確認</span>
+            <strong>利用規約</strong>
+            <p>注文成立、支払い、発送、禁止事項などの基本ルール。</p>
+          </a>
         </div>
       </section>
 
       <footer className="site-footer">
-        <strong>チケまる</strong>
-        <span>株式会社チケモ / 商品券・ギフトカード販売 / 古物商許可取得済み</span>
+        <div>
+          <strong>チケまる</strong>
+          <span>株式会社チケモ / 商品券・ギフトカード販売 / 古物商許可取得済み</span>
+        </div>
+        <div className="footer-links">
+          <a href="/legal">特商法表記</a>
+          <a href="/privacy">プライバシーポリシー</a>
+          <a href="/terms">利用規約</a>
+        </div>
       </footer>
     </main>
   );

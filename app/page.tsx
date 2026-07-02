@@ -55,7 +55,7 @@ export default function Home() {
             </div>
             <div>
               <dt>送料</dt>
-              <dd>50枚ごと+2,900円</dd>
+              <dd>1口2,900円</dd>
             </div>
             <div>
               <dt>支払い</dt>

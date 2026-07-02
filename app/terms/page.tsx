@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
-import { baseShipping, shippingUnitSize } from "../site-config";
+import { baseShipping } from "../site-config";
 
 const yen = new Intl.NumberFormat("ja-JP").format;
 
@@ -62,9 +62,8 @@ export default function TermsPage() {
         <article className="content-panel">
           <h2>送料と発送</h2>
           <p>
-            発送はレターパックで行い、追跡番号を案内します。送料は1口
-            {yen(baseShipping)}円、1口あたり{shippingUnitSize}
-            枚までです。口数が増えるごとに送料が{yen(baseShipping)}円ずつ加算されます。
+            発送はレターパックで行い、追跡番号を案内します。送料は全国一律
+            {yen(baseShipping)}円です。
           </p>
         </article>
 

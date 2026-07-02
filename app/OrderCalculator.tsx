@@ -4,10 +4,8 @@ import { useMemo, useState } from "react";
 import {
   baseShipping,
   calculateShipping,
-  calculateShippingUnits,
   lineUrl,
   products,
-  shippingUnitSize,
   unitPrice,
 } from "./site-config";
 
@@ -35,17 +33,11 @@ export default function OrderCalculator() {
 
   const totalCount = rows.reduce((sum, row) => sum + row.quantity, 0);
   const itemTotal = rows.reduce((sum, row) => sum + row.subtotal, 0);
-  const shippingUnits = calculateShippingUnits(totalCount);
   const shipping = calculateShipping(totalCount);
   const grandTotal = itemTotal + shipping;
   const shippingNote =
-    totalCount === 0
-      ? "枚数を入力してください"
-      : `${shippingUnits}口発送（1口${shippingUnitSize}枚まで）`;
-  const shippingFormula =
-    totalCount === 0
-      ? ""
-      : `${shippingUnits}口 × ${yen(baseShipping)}`;
+    totalCount === 0 ? "枚数を入力してください" : "全国一律送料";
+  const shippingFormula = totalCount === 0 ? "" : "全国一律";
   const selectedRows = rows.filter((row) => row.quantity > 0);
   const hasOrder = selectedRows.length > 0;
 
@@ -94,8 +86,8 @@ export default function OrderCalculator() {
         <p className="eyebrow">かんたん見積もり</p>
         <h2>枚数を入れて、LINEに送る内容を確認</h2>
         <p>
-          商品券はすべて1枚{unitPrice}円。送料は1口{yen(baseShipping)}で、
-          1口あたり{shippingUnitSize}枚まで。口数が増えるごとに送料が加算されます。
+          商品券はすべて1枚{unitPrice}円。送料は全国一律
+          {yen(baseShipping)}です。
         </p>
       </div>
 

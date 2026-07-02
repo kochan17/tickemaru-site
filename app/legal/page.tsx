@@ -5,7 +5,7 @@ import { legalRows } from "../site-config";
 export const metadata: Metadata = {
   title: "特定商取引法に基づく表示｜チケまる",
   description:
-    "チケまるの販売業者、所在地、送料、支払い方法、発送時期、返品・キャンセル、古物商許可に関する表示です。",
+    "チケまるの送料、支払い方法、発送時期、返品・キャンセル、古物商許可に関する表示です。",
 };
 
 export default function LegalPage() {
@@ -25,7 +25,7 @@ export default function LegalPage() {
       </header>
 
       <section className="subpage-hero">
-        <p className="eyebrow">運営元情報</p>
+        <p className="eyebrow">取引条件</p>
         <h1>特定商取引法に基づく表示</h1>
         <p>
           商品券・ギフトカードの通信販売に関する販売条件、送料、支払い、

@@ -2,17 +2,11 @@ export const lineUrl = "https://line.me/R/ti/p/@your-line-id";
 export const siteUrl = "https://tickemaru.com/";
 
 export const unitPrice = 999;
-export const baseShipping = 2900;
-export const shippingUnitSize = 50;
+export const baseShipping = 1100;
 
 export function calculateShipping(quantity: number) {
   if (quantity <= 0) return 0;
-  return Math.ceil(quantity / shippingUnitSize) * baseShipping;
-}
-
-export function calculateShippingUnits(quantity: number) {
-  if (quantity <= 0) return 0;
-  return Math.ceil(quantity / shippingUnitSize);
+  return baseShipping;
 }
 
 export const products = [
@@ -34,13 +28,6 @@ export const products = [
 ];
 
 export const legalRows = [
-  ["販売業者", "株式会社チケモ"],
-  ["運営統括責任者", "古木雄大"],
-  [
-    "所在地",
-    "新潟県新潟市中央区西堀通５－８５５－５フロンティア古町ビル３Ｆ－Ａ",
-  ],
-  ["電話番号", "03-4400-3405"],
   ["サイトURL", siteUrl],
   ["販売価格", "1,000円券1枚あたり999円"],
   [
@@ -49,7 +36,7 @@ export const legalRows = [
   ],
   [
     "商品代金以外の必要料金",
-    "送料：1口（50枚まで）2,900円。口数が増えるごとに2,900円ずつ加算されます。銀行振込手数料はお客様負担です。",
+    "送料：全国一律1,100円。銀行振込手数料はお客様負担です。",
   ],
   ["支払い方法", "銀行振込"],
   [
@@ -72,5 +59,5 @@ export const legalRows = [
     "資格・免許",
     "古物商許可番号：東京都公安委員会 第305512518791号",
   ],
-  ["お問い合わせ", "LINEまたは電話番号へお問い合わせください。"],
+  ["お問い合わせ", "LINEへお問い合わせください。"],
 ];

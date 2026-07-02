@@ -4,7 +4,6 @@ import {
   baseShipping,
   lineUrl,
   products,
-  shippingUnitSize,
 } from "./site-config";
 
 const yen = new Intl.NumberFormat("ja-JP").format;
@@ -25,7 +24,7 @@ export default function Home() {
           <a href="#quote">見積もり</a>
           <a href="#shipping">送料</a>
           <a href="#order">注文方法</a>
-          <a href="/legal">運営元</a>
+          <a href="/legal">法的表示</a>
         </nav>
         <a className="line-button small" href={lineUrl}>
           LINEで注文
@@ -55,7 +54,7 @@ export default function Home() {
             </div>
             <div>
               <dt>送料</dt>
-              <dd>1口2,900円</dd>
+              <dd>全国一律1,100円</dd>
             </div>
             <div>
               <dt>支払い</dt>
@@ -98,17 +97,17 @@ export default function Home() {
           <p className="eyebrow">送料と発送</p>
           <h2>レターパックで追跡可能。まとめ買いも安心。</h2>
           <p className="shipping-copy">
-            発送後は追跡番号で配送状況を確認できます。送料は1口
-            {yen(baseShipping)}円で、1口あたり{shippingUnitSize}
-            枚まで。合計枚数に応じて口数が増え、送料は口数分だけ加算されます。
+            発送後は追跡番号で配送状況を確認できます。送料は全国一律
+            {yen(baseShipping)}円です。まとめ買いでも送料が変わらないため、
+            枚数が多いご注文ほど利用しやすくなります。
           </p>
         </div>
         <div className="shipping-rule-card">
           <span>送料の考え方</span>
-          <strong>口数 × {yen(baseShipping)}円</strong>
+          <strong>全国一律 {yen(baseShipping)}円</strong>
           <p className="shipping-rule">
-            口数は「合計枚数 ÷ {shippingUnitSize}」を切り上げて計算します。
-            たとえば120枚なら3口、送料は{yen(baseShipping * 3)}円です。
+            枚数にかかわらず、送料は1注文につき{yen(baseShipping)}です。
+            商品代金と送料の合計を銀行振込でお支払いください。
           </p>
         </div>
       </section>
@@ -152,13 +151,13 @@ export default function Home() {
       <section id="legal" className="section legal-links-section">
         <div className="section-heading">
           <p className="eyebrow">安心してご利用いただくために</p>
-          <h2>運営元情報とご利用条件を確認できます</h2>
+          <h2>取引条件とご利用条件を確認できます</h2>
         </div>
         <div className="legal-link-grid">
           <a className="legal-link-card" href="/legal">
-            <span>運営元情報</span>
+            <span>取引条件</span>
             <strong>特定商取引法に基づく表示</strong>
-            <p>販売業者、所在地、送料、返品・キャンセルなどの取引条件。</p>
+            <p>送料、支払い方法、発送時期、返品・キャンセルなどの取引条件。</p>
           </a>
           <a className="legal-link-card" href="/privacy">
             <span>個人情報の取り扱い</span>
@@ -176,7 +175,7 @@ export default function Home() {
       <footer className="site-footer">
         <div>
           <strong>チケまる</strong>
-          <span>株式会社チケモ / 商品券・ギフトカード販売 / 古物商許可取得済み</span>
+          <span>商品券・ギフトカード販売 / 古物商許可取得済み</span>
         </div>
         <div className="footer-links">
           <a href="/legal">特商法表記</a>

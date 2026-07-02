@@ -1,10 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
-import { legalRows } from "../site-config";
-
-const company = legalRows.find(([term]) => term === "販売業者")?.[1];
-const address = legalRows.find(([term]) => term === "所在地")?.[1];
-const phone = legalRows.find(([term]) => term === "電話番号")?.[1];
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー｜チケまる",
@@ -38,15 +33,9 @@ export default function PrivacyPage() {
 
       <section className="policy-document">
         <article className="content-panel">
-          <h2>個人情報取扱事業者</h2>
-          <p>{company}</p>
-          <p>{address}</p>
-        </article>
-
-        <article className="content-panel">
           <h2>取得する情報</h2>
           <p>
-            氏名、住所、電話番号、LINEアカウント情報、注文内容、振込確認に必要な情報、
+            氏名、配送先住所、LINEアカウント情報、注文内容、振込確認に必要な情報、
             お問い合わせ内容など、取引と対応に必要な情報を取得します。
           </p>
         </article>
@@ -82,7 +71,7 @@ export default function PrivacyPage() {
           <h2>開示等の請求・お問い合わせ</h2>
           <p>
             保有個人データの開示、訂正、利用停止、削除、第三者提供停止等の請求、
-            個人情報の取り扱いに関する苦情・相談は、LINEまたは電話番号（{phone}）へお問い合わせください。
+            個人情報の取り扱いに関する苦情・相談は、LINEへお問い合わせください。
           </p>
         </article>
 

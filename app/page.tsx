@@ -106,7 +106,7 @@ export default function Home() {
           <span>送料の考え方</span>
           <strong>全国一律 {yen(baseShipping)}円</strong>
           <p className="shipping-rule">
-            枚数にかかわらず、送料は1注文につき{yen(baseShipping)}です。
+            枚数にかかわらず、送料は1注文につき{yen(baseShipping)}円です。
             商品代金と送料の合計を銀行振込でお支払いください。
           </p>
         </div>

@@ -4,10 +4,10 @@
 
 // LINE公式アカウントのベーシックID（@を含む）。
 // ここを差し替えるだけで、サイト内すべてのLINEボタンに反映されます。
-export const lineId = "@your-line-id";
+export const lineId = "@689mhlts";
 
 // 友だち追加用URL
-export const lineUrl = `https://line.me/R/ti/p/${lineId}`;
+export const lineUrl = `https://line.me/R/ti/p/${encodeURIComponent(lineId)}`;
 
 // 注文メモを本文にセットした状態でLINEを開くURL
 export function lineMessageUrl(text: string) {

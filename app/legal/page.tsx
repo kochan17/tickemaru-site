@@ -13,7 +13,7 @@ export default function LegalPage() {
     <main className="subpage-main">
       <header className="subpage-header">
         <a className="brand" href="/" aria-label="チケまる トップへ戻る">
-          <span className="brand-mark">チ</span>
+          <span className="brand-mark" aria-hidden="true" />
           <span>
             <strong>チケまる</strong>
             <small>商品券・ギフトカード販売</small>

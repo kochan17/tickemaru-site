@@ -74,7 +74,7 @@ export default function Home() {
 
       <header className="site-header" aria-label="サイトヘッダー">
         <a className="brand" href="#top" aria-label="チケまる">
-          <span className="brand-mark">チ</span>
+          <span className="brand-mark" aria-hidden="true" />
           <span>
             <strong>チケまる</strong>
             <small>商品券・ギフトカード販売</small>

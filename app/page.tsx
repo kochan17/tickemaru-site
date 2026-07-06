@@ -1,30 +1,149 @@
+import type { Metadata } from "next";
 import OrderCalculator from "./OrderCalculator";
 import {
+  absoluteUrl,
   baseShipping,
   faqs,
+  faceValue,
   licenseNumber,
   lineUrl,
   products,
+  siteDescription,
+  siteLanguage,
+  siteLocale,
+  siteLogo,
+  siteName,
+  siteOgImage,
+  siteTitle,
   siteUrl,
   unitPrice,
 } from "./site-config";
 
 const yen = new Intl.NumberFormat("ja-JP").format;
 
+export const metadata: Metadata = {
+  title: { absolute: siteTitle },
+  description: siteDescription,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    url: absoluteUrl("/"),
+    siteName,
+    locale: siteLocale,
+    type: "website",
+    images: [
+      {
+        url: absoluteUrl(siteOgImage),
+        width: 1693,
+        height: 929,
+        alt: "チケまるの商品券・ギフトカード販売イメージ",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: [absoluteUrl(siteOgImage)],
+  },
+};
+
+const organizationId = `${siteUrl}#organization`;
+const websiteId = `${siteUrl}#website`;
+const webpageId = `${siteUrl}#webpage`;
+
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Store",
-      name: "チケまる",
+      "@type": "Organization",
+      "@id": organizationId,
+      name: siteName,
       url: siteUrl,
-      description:
-        "全国百貨店共通商品券、VJAギフトカード、JCBギフトカードを1枚999円で販売する古物商許可店。",
-      paymentAccepted: "銀行振込",
-      hasCredential: `古物商許可番号：${licenseNumber}`,
+      logo: absoluteUrl(siteLogo),
+      image: absoluteUrl(siteOgImage),
+      description: siteDescription,
+      sameAs: [lineUrl],
+      identifier: {
+        "@type": "PropertyValue",
+        propertyID: "古物商許可番号",
+        value: licenseNumber,
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        availableLanguage: ["ja"],
+        url: lineUrl,
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      url: siteUrl,
+      name: siteName,
+      description: siteDescription,
+      inLanguage: siteLanguage,
+      publisher: { "@id": organizationId },
+    },
+    {
+      "@type": "WebPage",
+      "@id": webpageId,
+      url: siteUrl,
+      name: siteTitle,
+      description: siteDescription,
+      isPartOf: { "@id": websiteId },
+      about: { "@id": organizationId },
+      inLanguage: siteLanguage,
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: absoluteUrl(siteOgImage),
+        width: 1693,
+        height: 929,
+      },
+    },
+    {
+      "@type": "OfferCatalog",
+      name: "チケまるの取扱商品",
+      itemListElement: products.map((product) => ({
+        "@type": "Offer",
+        price: unitPrice,
+        priceCurrency: "JPY",
+        seller: { "@id": organizationId },
+        url: `${siteUrl}#quote`,
+        itemOffered: {
+          "@type": "Product",
+          name: product.name,
+          description: product.description,
+          category: "商品券・ギフトカード",
+          image: absoluteUrl(siteOgImage),
+          offers: {
+            "@type": "Offer",
+            price: unitPrice,
+            priceCurrency: "JPY",
+            url: `${siteUrl}#quote`,
+            seller: { "@id": organizationId },
+          },
+          additionalProperty: [
+            {
+              "@type": "PropertyValue",
+              name: "額面",
+              value: `${yen(faceValue)}円券`,
+            },
+            {
+              "@type": "PropertyValue",
+              name: "販売単位",
+              value: "1枚単位",
+            },
+          ],
+        },
+      })),
     },
     {
       "@type": "FAQPage",
+      "@id": `${siteUrl}#faq`,
       mainEntity: faqs.map((faq) => ({
         "@type": "Question",
         name: faq.question,

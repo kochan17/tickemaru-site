@@ -1,11 +1,38 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
-import { legalRows } from "../site-config";
+import {
+  absoluteUrl,
+  legalRows,
+  siteLocale,
+  siteName,
+  siteOgImage,
+} from "../site-config";
+
+const description =
+  "チケまるの商品券・ギフトカード販売に関する送料、支払い方法、発送時期、返品・キャンセル、古物商許可番号を掲載しています。";
 
 export const metadata: Metadata = {
-  title: "特定商取引法に基づく表示｜チケまる",
-  description:
-    "チケまるの送料、支払い方法、発送時期、返品・キャンセル、古物商許可に関する表示です。",
+  title: "特定商取引法に基づく表示",
+  description,
+  alternates: {
+    canonical: "/legal",
+  },
+  openGraph: {
+    title: `特定商取引法に基づく表示｜${siteName}`,
+    description,
+    url: absoluteUrl("/legal"),
+    siteName,
+    locale: siteLocale,
+    type: "article",
+    images: [
+      {
+        url: absoluteUrl(siteOgImage),
+        width: 1693,
+        height: 929,
+        alt: "チケまるの商品券・ギフトカード販売イメージ",
+      },
+    ],
+  },
 };
 
 export default function LegalPage() {

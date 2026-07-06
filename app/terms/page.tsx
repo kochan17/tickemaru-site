@@ -1,13 +1,39 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
-import { baseShipping } from "../site-config";
+import {
+  absoluteUrl,
+  baseShipping,
+  siteLocale,
+  siteName,
+  siteOgImage,
+} from "../site-config";
 
 const yen = new Intl.NumberFormat("ja-JP").format;
+const description =
+  "チケまるの商品券・ギフトカード注文、支払い、送料、発送、返品・キャンセル、禁止事項に関する利用条件です。";
 
 export const metadata: Metadata = {
-  title: "利用規約｜チケまる",
-  description:
-    "チケまるの注文、支払い、発送、返品・キャンセル、禁止事項に関するご利用条件です。",
+  title: "利用規約",
+  description,
+  alternates: {
+    canonical: "/terms",
+  },
+  openGraph: {
+    title: `利用規約｜${siteName}`,
+    description,
+    url: absoluteUrl("/terms"),
+    siteName,
+    locale: siteLocale,
+    type: "article",
+    images: [
+      {
+        url: absoluteUrl(siteOgImage),
+        width: 1693,
+        height: 929,
+        alt: "チケまるの商品券・ギフトカード販売イメージ",
+      },
+    ],
+  },
 };
 
 export default function TermsPage() {

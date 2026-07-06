@@ -1,10 +1,37 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
+import {
+  absoluteUrl,
+  siteLocale,
+  siteName,
+  siteOgImage,
+} from "../site-config";
+
+const description =
+  "チケまるで取得する個人情報、利用目的、第三者提供、委託、安全管理、開示等の請求、お問い合わせ方法に関する方針です。";
 
 export const metadata: Metadata = {
-  title: "プライバシーポリシー｜チケまる",
-  description:
-    "チケまるにおける個人情報の取得、利用目的、第三者提供、安全管理、開示等の請求に関する方針です。",
+  title: "プライバシーポリシー",
+  description,
+  alternates: {
+    canonical: "/privacy",
+  },
+  openGraph: {
+    title: `プライバシーポリシー｜${siteName}`,
+    description,
+    url: absoluteUrl("/privacy"),
+    siteName,
+    locale: siteLocale,
+    type: "article",
+    images: [
+      {
+        url: absoluteUrl(siteOgImage),
+        width: 1693,
+        height: 929,
+        alt: "チケまるの商品券・ギフトカード販売イメージ",
+      },
+    ],
+  },
 };
 
 export default function PrivacyPage() {

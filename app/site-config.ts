@@ -14,12 +14,26 @@ export function lineMessageUrl(text: string) {
   return `https://line.me/R/oaMessage/${encodeURIComponent(lineId)}/?${encodeURIComponent(text)}`;
 }
 
+export const siteName = "チケまる";
 export const siteUrl = "https://tickemaru.com/";
+export const siteLocale = "ja_JP";
+export const siteLanguage = "ja-JP";
+export const siteTagline = "商品券・ギフトカード販売";
+export const siteTitle =
+  "チケまる｜商品券・ギフトカード販売・ギフト券まとめ買い";
+export const siteDescription =
+  "全国百貨店共通商品券、VJAギフトカード、JCBギフトカードを1枚999円で販売。古物商許可店がLINEで注文受付、銀行振込、追跡番号付きレターパックで発送します。";
+export const siteOgImage = "/gift-card-hero.png";
+export const siteLogo = "/tickemaru-icon.png";
 export const licenseNumber = "東京都公安委員会 第305512518719号";
 
 export const unitPrice = 999;
 export const faceValue = 1000;
 export const baseShipping = 1100;
+
+export function absoluteUrl(path = "/") {
+  return new URL(path, siteUrl).toString();
+}
 
 export function calculateShipping(quantity: number) {
   if (quantity <= 0) return 0;

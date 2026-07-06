@@ -1,20 +1,28 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { siteUrl } from "./site-config";
+import {
+  absoluteUrl,
+  siteDescription,
+  siteLocale,
+  siteLogo,
+  siteName,
+  siteOgImage,
+  siteTitle,
+  siteUrl,
+} from "./site-config";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "チケまる｜商品券・ギフトカード販売（古物商許可店）",
-  description:
-    "全国百貨店共通商品券、VJAギフトカード、JCBギフトカードを1枚999円で販売。古物商許可店がLINEで注文受付、銀行振込、追跡番号付きレターパックで発送します。",
-  keywords: [
-    "商品券販売",
-    "ギフトカード販売",
-    "全国百貨店共通商品券",
-    "VJAギフトカード",
-    "JCBギフトカード",
-    "まとめ買い",
-  ],
+  applicationName: siteName,
+  title: {
+    default: siteTitle,
+    template: `%s｜${siteName}`,
+  },
+  description: siteDescription,
+  authors: [{ name: siteName, url: siteUrl }],
+  creator: siteName,
+  publisher: siteName,
+  category: "ecommerce",
   icons: {
     icon: [
       { url: "/favicon.png", sizes: "64x64", type: "image/png" },
@@ -23,12 +31,41 @@ export const metadata: Metadata = {
     shortcut: "/favicon-32.png",
     apple: "/apple-touch-icon.png",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "チケまる｜商品券・ギフトカード販売",
-    description:
-      "商品券・ギフトカードを1枚999円で。古物商許可店がLINE注文・追跡番号付きで発送。送料は全国一律1,100円。",
-    url: siteUrl,
-    images: ["/gift-card-hero.png"],
+    siteName,
+    title: siteTitle,
+    description: siteDescription,
+    locale: siteLocale,
+    type: "website",
+    images: [
+      {
+        url: absoluteUrl(siteOgImage),
+        width: 1693,
+        height: 929,
+        alt: "チケまるの商品券・ギフトカード販売イメージ",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: [absoluteUrl(siteOgImage)],
+  },
+  other: {
+    "format-detection": "telephone=no",
+    "thumbnail": absoluteUrl(siteLogo),
   },
 };
 

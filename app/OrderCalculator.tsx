@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import {
   baseShipping,
   calculateShipping,
+  lineMessageUrl,
   lineUrl,
   products,
   unitPrice,
@@ -13,6 +14,19 @@ const formatter = new Intl.NumberFormat("ja-JP");
 
 function yen(value: number) {
   return `${formatter.format(value)}円`;
+}
+
+function LineIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="line-icon"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path d="M12 2.5c-5.52 0-10 3.64-10 8.13 0 4.02 3.57 7.39 8.39 8.03.33.07.77.22.89.5.1.26.07.66.03.92l-.14.86c-.04.26-.2 1 .88.55 1.08-.46 5.84-3.44 7.97-5.89C21.5 13.9 22 12.35 22 10.63c0-4.49-4.48-8.13-10-8.13z" />
+    </svg>
+  );
 }
 
 export default function OrderCalculator() {
@@ -35,9 +49,6 @@ export default function OrderCalculator() {
   const itemTotal = rows.reduce((sum, row) => sum + row.subtotal, 0);
   const shipping = calculateShipping(totalCount);
   const grandTotal = itemTotal + shipping;
-  const shippingNote =
-    totalCount === 0 ? "枚数を入力してください" : "全国一律送料";
-  const shippingFormula = totalCount === 0 ? "" : "全国一律";
   const selectedRows = rows.filter((row) => row.quantity > 0);
   const hasOrder = selectedRows.length > 0;
 
@@ -50,7 +61,7 @@ export default function OrderCalculator() {
     "",
     `合計枚数：${totalCount}枚`,
     `商品合計：${yen(itemTotal)}`,
-    `送料：${yen(shipping)}（${shippingFormula}）`,
+    `送料：${yen(shipping)}（全国一律）`,
     `振込予定額：${yen(grandTotal)}`,
     "",
     "在庫と振込先の案内をお願いします。",
@@ -84,10 +95,10 @@ export default function OrderCalculator() {
     <section id="quote" className="section calculator-section">
       <div className="calculator-heading">
         <p className="eyebrow">かんたん見積もり</p>
-        <h2>枚数を入れて、LINEに送る内容を確認</h2>
+        <h2>枚数を入れて、そのままLINEで送る</h2>
         <p>
-          商品券はすべて1枚{unitPrice}円。送料は全国一律
-          {yen(baseShipping)}です。
+          すべて1枚{yen(unitPrice)}。送料は枚数にかかわらず全国一律
+          {yen(baseShipping)}です。入力した注文内容は、ボタンひとつでLINEに送れます。
         </p>
       </div>
 
@@ -95,35 +106,52 @@ export default function OrderCalculator() {
         <div className="quantity-list" aria-label="商品ごとの枚数入力">
           {rows.map((row) => (
             <article className="quantity-row" key={row.name}>
-              <div>
+              <div className="quantity-row-info">
                 <h3>{row.name}</h3>
-                <p>999円 / 枚</p>
+                <p>
+                  {yen(unitPrice)} / 枚
+                  {row.quantity > 0 && (
+                    <strong className="row-subtotal">
+                      　小計 {yen(row.subtotal)}
+                    </strong>
+                  )}
+                </p>
               </div>
-              <div className="stepper">
+              <div className="quantity-controls">
+                <div className="stepper">
+                  <button
+                    aria-label={`${row.name}を1枚減らす`}
+                    onClick={() => updateQuantity(row.name, row.quantity - 1)}
+                    type="button"
+                  >
+                    −
+                  </button>
+                  <input
+                    aria-label={`${row.name}の枚数`}
+                    inputMode="numeric"
+                    min="0"
+                    max="999"
+                    onChange={(event) =>
+                      updateQuantity(row.name, Number(event.target.value))
+                    }
+                    type="number"
+                    value={row.quantity}
+                  />
+                  <button
+                    aria-label={`${row.name}を1枚増やす`}
+                    onClick={() => updateQuantity(row.name, row.quantity + 1)}
+                    type="button"
+                  >
+                    ＋
+                  </button>
+                </div>
                 <button
-                  aria-label={`${row.name}を1枚減らす`}
-                  onClick={() => updateQuantity(row.name, row.quantity - 1)}
+                  aria-label={`${row.name}を10枚増やす`}
+                  className="bulk-add"
+                  onClick={() => updateQuantity(row.name, row.quantity + 10)}
                   type="button"
                 >
-                  -
-                </button>
-                <input
-                  aria-label={`${row.name}の枚数`}
-                  inputMode="numeric"
-                  min="0"
-                  max="999"
-                  onChange={(event) =>
-                    updateQuantity(row.name, Number(event.target.value))
-                  }
-                  type="number"
-                  value={row.quantity}
-                />
-                <button
-                  aria-label={`${row.name}を1枚増やす`}
-                  onClick={() => updateQuantity(row.name, row.quantity + 1)}
-                  type="button"
-                >
-                  +
+                  +10枚
                 </button>
               </div>
             </article>
@@ -140,20 +168,28 @@ export default function OrderCalculator() {
             <strong>{yen(itemTotal)}</strong>
           </div>
           <div className="quote-line">
-            <span>送料</span>
+            <span>送料（全国一律）</span>
             <strong>{yen(shipping)}</strong>
           </div>
-          <p className="quote-note">{shippingNote}</p>
           <div className="quote-total">
             <span>振込予定額</span>
             <strong>{yen(grandTotal)}</strong>
           </div>
 
           <div className="order-memo" aria-label="LINEに送る注文メモ">
-            {hasOrder ? orderText : "欲しい商品の枚数を入力してください。"}
+            {hasOrder
+              ? orderText
+              : "枚数を入力すると、LINEに送る注文メモがここに表示されます。"}
           </div>
 
           <div className="quote-actions">
+            <a
+              className="line-button"
+              href={hasOrder ? lineMessageUrl(orderText) : lineUrl}
+            >
+              <LineIcon />
+              {hasOrder ? "この内容をLINEで送る" : "LINEで相談する"}
+            </a>
             <button
               className="copy-button"
               disabled={!hasOrder}
@@ -162,10 +198,10 @@ export default function OrderCalculator() {
             >
               {copyLabel}
             </button>
-            <a className="line-button" href={lineUrl}>
-              LINEを開く
-            </a>
           </div>
+          <p className="quote-hint">
+            送信後、在庫と振込先をご案内します。この時点では注文は確定しません。
+          </p>
         </aside>
       </div>
     </section>

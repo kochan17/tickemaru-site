@@ -25,7 +25,7 @@ export const siteDescription =
   "全国百貨店共通商品券、VJAギフトカード、JCBギフトカードを1枚999円で販売。古物商許可店がLINEで注文受付、銀行振込、追跡番号付きレターパックで発送します。";
 export const siteOgImage = "/gift-card-hero.png";
 export const siteLogo = "/tickemaru-icon.png";
-export const licenseNumber = "東京都公安委員会 第305512518719号";
+export const licenseNumber = "東京都公安委員会 第205512518719号";
 
 export const unitPrice = 999;
 export const faceValue = 1000;

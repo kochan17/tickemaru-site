@@ -6,6 +6,7 @@ import {
   siteLocale,
   siteName,
   siteOgImage,
+  shippingNotice,
 } from "../site-config";
 
 const yen = new Intl.NumberFormat("ja-JP").format;
@@ -88,8 +89,8 @@ export default function TermsPage() {
         <article className="content-panel">
           <h2>送料と発送</h2>
           <p>
-            発送はレターパックで行い、追跡番号を案内します。送料は全国一律
-            {yen(baseShipping)}円です。
+            発送はレターパックで行い、追跡番号を案内します。基本送料は全国一律
+            {yen(baseShipping)}円です。{shippingNotice}
           </p>
         </article>
 

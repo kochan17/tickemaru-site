@@ -16,6 +16,7 @@ import {
   siteOgImage,
   siteTitle,
   siteUrl,
+  shippingNotice,
   unitPrice,
 } from "./site-config";
 
@@ -278,9 +279,10 @@ export default function Home() {
             </dd>
           </div>
           <div>
-            <dt>送料（1注文）</dt>
+            <dt>基本送料（1注文）</dt>
             <dd>
               全国一律 <em>{yen(baseShipping)}</em> 円
+              <small className="fact-note">送付先住所などにより変動あり</small>
             </dd>
           </div>
           <div>
@@ -335,16 +337,16 @@ export default function Home() {
         <div>
           <p className="eyebrow">送料と発送</p>
           <h2>追跡番号付きレターパックで、確実にお届け</h2>
-          <p className="shipping-copy">{`発送後は追跡番号をLINEでお知らせし、配送状況をいつでも確認できます。送料は枚数にかかわらず1注文につき全国一律${yen(baseShipping)}円。まとめ買いでも送料は変わらないため、枚数が多いご注文ほど1枚あたりの負担が小さくなります。`}</p>
+          <p className="shipping-copy">{`発送後は追跡番号をLINEでお知らせし、配送状況をいつでも確認できます。1注文あたりの基本送料は、枚数にかかわらず全国一律${yen(baseShipping)}円です。${shippingNotice}`}</p>
         </div>
         <div className="shipping-rule-card">
           <span>送料の考え方</span>
           <strong>
-            全国一律 {yen(baseShipping)}円 <small>/ 1注文</small>
+            基本送料 {yen(baseShipping)}円 <small>/ 1注文</small>
           </strong>
           <p className="shipping-rule">
-            何枚のご注文でも送料は{yen(baseShipping)}円のまま。
-            商品代金と送料の合計を銀行振込でお支払いください。
+            枚数にかかわらず基本送料は{yen(baseShipping)}円です。
+            {shippingNotice}
           </p>
         </div>
       </section>

@@ -29,7 +29,9 @@ export const licenseNumber = "東京都公安委員会 第205512518719号";
 
 export const unitPrice = 999;
 export const faceValue = 1000;
-export const baseShipping = 1100;
+export const baseShipping = 1500;
+export const shippingNotice =
+  "送付先住所などにより送料が異なる場合があります。確定送料は注文前にLINEでご案内します。";
 
 export function absoluteUrl(path = "/") {
   return new URL(path, siteUrl).toString();
@@ -76,8 +78,7 @@ export const faqs = [
   },
   {
     question: "1枚だけでも注文できますか？",
-    answer:
-      "1枚からご注文いただけます。送料は枚数にかかわらず1注文につき全国一律1,100円のため、まとめてのご注文ほど1枚あたりの負担が小さくなります。",
+    answer: `1枚からご注文いただけます。1注文あたりの基本送料は、枚数にかかわらず全国一律${baseShipping.toLocaleString("ja-JP")}円です。${shippingNotice}`,
   },
   {
     question: "支払い方法は何がありますか？",
@@ -105,7 +106,7 @@ export const legalRows = [
   ],
   [
     "商品代金以外の必要料金",
-    "送料：全国一律1,100円。銀行振込手数料はお客様負担です。",
+    `基本送料：全国一律${baseShipping.toLocaleString("ja-JP")}円。ただし、${shippingNotice}銀行振込手数料はお客様負担です。`,
   ],
   ["支払い方法", "銀行振込"],
   [

@@ -7,6 +7,7 @@ import {
   lineMessageUrl,
   lineUrl,
   products,
+  shippingNotice,
   unitPrice,
 } from "./site-config";
 
@@ -61,8 +62,9 @@ export default function OrderCalculator() {
     "",
     `合計枚数：${totalCount}枚`,
     `商品合計：${yen(itemTotal)}`,
-    `送料：${yen(shipping)}（全国一律）`,
-    `振込予定額：${yen(grandTotal)}`,
+    `送料（基本）：${yen(shipping)}`,
+    `振込予定額（目安）：${yen(grandTotal)}`,
+    `※${shippingNotice}`,
     "",
     "在庫と振込先の案内をお願いします。",
   ].join("\n");
@@ -97,8 +99,9 @@ export default function OrderCalculator() {
         <p className="eyebrow">かんたん見積もり</p>
         <h2>枚数を入れて、そのままLINEで送る</h2>
         <p>
-          すべて1枚{yen(unitPrice)}。送料は枚数にかかわらず全国一律
-          {yen(baseShipping)}です。入力した注文内容は、ボタンひとつでLINEに送れます。
+          すべて1枚{yen(unitPrice)}。1注文あたりの基本送料は、枚数にかかわらず全国一律
+          {yen(baseShipping)}です。{shippingNotice}
+          入力した注文内容は、ボタンひとつでLINEに送れます。
         </p>
       </div>
 
@@ -168,11 +171,11 @@ export default function OrderCalculator() {
             <strong>{yen(itemTotal)}</strong>
           </div>
           <div className="quote-line">
-            <span>送料（全国一律）</span>
+            <span>送料（基本）</span>
             <strong>{yen(shipping)}</strong>
           </div>
           <div className="quote-total">
-            <span>振込予定額</span>
+            <span>お支払い目安</span>
             <strong>{yen(grandTotal)}</strong>
           </div>
 
@@ -200,6 +203,7 @@ export default function OrderCalculator() {
             </button>
           </div>
           <p className="quote-hint">
+            {shippingNotice}
             送信後、在庫と振込先をご案内します。この時点では注文は確定しません。
           </p>
         </aside>

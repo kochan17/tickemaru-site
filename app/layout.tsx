@@ -11,6 +11,8 @@ import {
   siteUrl,
 } from "./site-config";
 
+const GA_MEASUREMENT_ID = "G-ZCHMSXLMCW";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: siteName,
@@ -30,6 +32,9 @@ export const metadata: Metadata = {
     ],
     shortcut: "/favicon-32.png",
     apple: "/apple-touch-icon.png",
+  },
+  verification: {
+    google: "BLbTNyISLHlpH3SNA1bt-TKeF4RqnrlTGfJGnGKWM3M",
   },
   robots: {
     index: true,
@@ -81,19 +86,17 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        {/* Google tag (gtag.js) */}
+        {/* Google tag (gtag.js) — GA4 チケまる */}
         <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-ZCHMSXLMCW"
-        />
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        ></script>
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-ZCHMSXLMCW');
-            `,
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`,
           }}
         />
         {children}

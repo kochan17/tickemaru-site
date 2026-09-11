@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LineCta from "./LineCta";
 import OrderCalculator from "./OrderCalculator";
 import {
   absoluteUrl,
@@ -207,10 +208,10 @@ export default function Home() {
           <a href="#order">注文の流れ</a>
           <a href="#faq">よくある質問</a>
         </nav>
-        <a className="line-button small" href={lineUrl}>
+        <LineCta className="line-button small">
           <LineIcon />
           LINEで注文
-        </a>
+        </LineCta>
       </header>
 
       <section id="top" className="hero">
@@ -226,10 +227,10 @@ export default function Home() {
             </h1>
             <p className="lead">全国百貨店共通商品券、VJAギフトカード、JCBギフトカードを1枚単位で販売。注文から発送連絡までLINEで完結し、追跡番号付きでお届けします。</p>
             <div className="hero-actions">
-              <a className="line-button large" href={lineUrl}>
+              <LineCta className="line-button large">
                 <LineIcon />
                 LINEで注文・相談する
-              </a>
+              </LineCta>
               <a className="ghost-button" href="#quote">
                 枚数から見積もる
               </a>
@@ -449,10 +450,10 @@ export default function Home() {
         <p>
           在庫と合計金額をすぐにご案内します。相談・見積もりだけでも歓迎です。
         </p>
-        <a className="line-button large" href={lineUrl}>
+        <LineCta className="line-button large">
           <LineIcon />
           LINEで注文・相談をはじめる
-        </a>
+        </LineCta>
         <span className="final-cta-note">
           友だち追加後、商品名と枚数を送るだけ
         </span>
@@ -475,10 +476,10 @@ export default function Home() {
         <a className="ghost-button" href="#quote">
           見積もり
         </a>
-        <a className="line-button" href={lineUrl}>
+        <LineCta className="line-button">
           <LineIcon />
           LINEで注文・相談
-        </a>
+        </LineCta>
       </div>
     </main>
   );

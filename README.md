@@ -25,4 +25,5 @@ npm run build
 - `app/globals.css`: スタイル
 - `app/OrderCalculator.tsx`: 見積もり計算
 - `app/site-config.ts`: 商品、送料、運営元情報
+- `app/visit-source.ts` / `app/LineCta.tsx`: 流入元（`?utm_source=…`）を90日記憶し、LINEの最初のメッセージと注文メモに「経由：◯◯（コード：XXX）」を入れる（先払い買取ナビ経由の注文の識別用）
 - `public/gift-card-hero.png`: メイン画像

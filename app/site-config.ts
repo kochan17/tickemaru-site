@@ -14,6 +14,80 @@ export function lineMessageUrl(text: string) {
   return `https://line.me/R/oaMessage/${encodeURIComponent(lineId)}/?${encodeURIComponent(text)}`;
 }
 
+// ============================================================
+// 流入元の識別（2026-09-11）
+// ?utm_source=… 付きで来た訪問者を端末に90日記憶し、LINEの最初のメッセージと注文メモに
+// 「経由：◯◯（コード：XXX）」を入れて、どこから来た注文かをLINE上で判別できるようにします。
+// 先払い買取ナビの広告枠は utm_source=sakibarai-kaitori-navi&utm_medium=ad-banner で遷移してきます。
+// ============================================================
+export const visitSourceStorageKey = "tickemaru_src_v1";
+export const visitSourceTtlMs = 90 * 24 * 60 * 60 * 1000;
+
+export type VisitSource = {
+  /** utm_source の値（英数字・ハイフン・アンダースコアのみ） */
+  source: string;
+  /** utm_medium の値（同上・任意） */
+  medium: string;
+  /** LINE上で見せる表示名 */
+  label: string;
+  /** LINE上で見せる短いコード */
+  code: string;
+  /** 記憶した時刻（ms） */
+  at: number;
+};
+
+const knownVisitSources: Record<string, { label: string; code: string }> = {
+  "sakibarai-kaitori-navi": { label: "先払い買取ナビ", code: "NAVI" },
+};
+
+function cleanToken(value: string | null | undefined, maxLength: number) {
+  return (value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]/g, "")
+    .slice(0, maxLength);
+}
+
+/** utm_source / utm_medium から表示名とコードを決める。source が空なら null */
+export function describeVisitSource(
+  rawSource: string | null | undefined,
+  rawMedium: string | null | undefined = "",
+  at = Date.now(),
+): VisitSource | null {
+  const source = cleanToken(rawSource, 40);
+  if (!source) return null;
+  const medium = cleanToken(rawMedium, 20);
+  const known = knownVisitSources[source];
+  return {
+    source,
+    medium,
+    label: known?.label ?? source,
+    code: known?.code ?? source.toUpperCase(),
+    at,
+  };
+}
+
+/** 注文メモ・LINE本文に入れる1行（例: 経由：先払い買取ナビ（コード：NAVI/ad-banner）） */
+export function visitSourceNote(src: VisitSource) {
+  const code = src.medium ? `${src.code}/${src.medium}` : src.code;
+  return `経由：${src.label}（コード：${code}）`;
+}
+
+/** 「LINEで注文・相談」ボタンから送る最初のメッセージ（流入元が分かっているときだけ使う） */
+export function visitSourceGreeting(src: VisitSource) {
+  return [
+    `${src.label}を見て来ました。`,
+    visitSourceNote(src),
+    "",
+    "商品券・ギフトカードの注文について相談したいです。",
+  ].join("\n");
+}
+
+/** 流入元が分かっていればメッセージ付きのLINE URL、なければ通常の友だち追加URL */
+export function lineUrlForSource(src: VisitSource | null) {
+  return src ? lineMessageUrl(visitSourceGreeting(src)) : lineUrl;
+}
+
 export const siteName = "チケまる";
 export const siteUrl = "https://tickemaru.com/";
 export const siteLocale = "ja_JP";

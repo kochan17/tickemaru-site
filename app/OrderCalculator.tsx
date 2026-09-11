@@ -5,11 +5,13 @@ import {
   baseShipping,
   calculateShipping,
   lineMessageUrl,
-  lineUrl,
+  lineUrlForSource,
   products,
   shippingNotice,
   unitPrice,
+  visitSourceNote,
 } from "./site-config";
+import { useVisitSource } from "./visit-source";
 
 const formatter = new Intl.NumberFormat("ja-JP");
 
@@ -35,6 +37,8 @@ export default function OrderCalculator() {
     Object.fromEntries(products.map((product) => [product.name, 0])),
   );
   const [copyLabel, setCopyLabel] = useState("注文メモをコピー");
+  // 流入元（utm_source）。分かっていれば注文メモとLINEの下書きに「経由：…」を入れる
+  const visitSource = useVisitSource();
 
   const rows = useMemo(
     () =>
@@ -55,6 +59,7 @@ export default function OrderCalculator() {
 
   const orderText = [
     "チケまる 注文相談",
+    ...(visitSource ? [visitSourceNote(visitSource)] : []),
     "",
     ...selectedRows.map(
       (row) => `${row.name}：${row.quantity}枚（${yen(row.subtotal)}）`,
@@ -188,7 +193,7 @@ export default function OrderCalculator() {
           <div className="quote-actions">
             <a
               className="line-button"
-              href={hasOrder ? lineMessageUrl(orderText) : lineUrl}
+              href={hasOrder ? lineMessageUrl(orderText) : lineUrlForSource(visitSource)}
             >
               <LineIcon />
               {hasOrder ? "この内容をLINEで送る" : "LINEで相談する"}

@@ -25,9 +25,30 @@ interface ExecutionContext {
 // dangerouslyAllowSVG: true in next.config.js and uncomment below:
 // const imageConfig: ImageConfig = { dangerouslyAllowSVG: true };
 
+// 正規URL（2026-10-10）: http:// と www. で来たアクセスは https://tickemaru.com へ 301 で1回だけ転送する。
+// 検索エンジンに同じページが別URLで見えないようにするため。パスとクエリ（utm_source など）はそのまま引き継ぐ。
+// 本番の2ドメイン以外（localhost・workers.dev・プレビューURL）は転送しない。
+const CANONICAL_HOST = "tickemaru.com";
+const PRODUCTION_HOSTS = new Set([CANONICAL_HOST, `www.${CANONICAL_HOST}`]);
+
+function canonicalRedirect(url: URL): Response | null {
+  if (!PRODUCTION_HOSTS.has(url.hostname)) return null;
+  if (url.protocol === "https:" && url.hostname === CANONICAL_HOST) return null;
+  const target = new URL(url.toString());
+  target.protocol = "https:";
+  target.hostname = CANONICAL_HOST;
+  target.port = "";
+  return Response.redirect(target.toString(), 301);
+}
+
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+
+    const redirect = canonicalRedirect(url);
+    if (redirect) {
+      return redirect;
+    }
 
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];

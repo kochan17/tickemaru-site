@@ -225,7 +225,7 @@ export default function Home() {
               <span className="phrase">商品券・ギフトカードを、</span>
               <span className="phrase">必要な分だけ確かに。</span>
             </h1>
-            <p className="lead">全国百貨店共通商品券、VJAギフトカード、JCBギフトカードを1枚単位で販売。注文から発送連絡までLINEで完結し、追跡番号付きでお届けします。</p>
+            <p className="lead">全国百貨店共通商品券、VJAギフトカード、JCBギフトカードを1枚単位で販売。LINEで注文でき、追跡番号付きでお届けします。</p>
             <div className="hero-actions">
               <LineCta className="line-button large">
                 <LineIcon />
@@ -246,7 +246,7 @@ export default function Home() {
               </li>
               <li>
                 <CheckIcon />
-                入金確認後、当日〜翌日に発送
+                ご入金から2日以内に発送
               </li>
             </ul>
           </div>
@@ -295,7 +295,7 @@ export default function Home() {
           <div>
             <dt>発送</dt>
             <dd>
-              入金確認後 <em>当日〜翌日</em>
+              ご入金から <em>2日以内</em>
             </dd>
           </div>
         </dl>
@@ -338,7 +338,7 @@ export default function Home() {
         <div>
           <p className="eyebrow">送料と発送</p>
           <h2>追跡番号付きレターパックで、確実にお届け</h2>
-          <p className="shipping-copy">{`発送後は追跡番号をLINEでお知らせし、配送状況をいつでも確認できます。1注文あたりの基本送料は、枚数にかかわらず全国一律${yen(baseShipping)}円です。${shippingNotice}`}</p>
+          <p className="shipping-copy">{`追跡番号は原則入金確認の当日中にメールでお知らせし、配送状況をいつでも確認できます。1注文あたりの基本送料は、枚数にかかわらず全国一律${yen(baseShipping)}円です。${shippingNotice}`}</p>
         </div>
         <div className="shipping-rule-card">
           <span>送料の考え方</span>
@@ -382,7 +382,7 @@ export default function Home() {
             [
               "4",
               "追跡発送",
-              "入金確認後、当日〜翌日にレターパックで発送。追跡番号をお知らせします。",
+              "ご入金から2日以内にレターパックで発送します。追跡番号は原則入金確認の当日中にメールでお知らせします。",
             ],
           ].map(([number, title, body]) => (
             <article className="flow-card" key={number}>
